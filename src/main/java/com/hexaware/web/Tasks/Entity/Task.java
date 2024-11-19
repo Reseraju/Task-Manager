@@ -13,12 +13,12 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Task {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates primary key values
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int taskId;
 
     @NotNull(message = "Title cannot be null")
     @Size(min = 2, max = 50, message = "Title should be between 2 and 50 characters")
-    @Column(nullable = false, length = 50) // Maps to a column with constraints
+    @Column(nullable = false, length = 50) 
     private String title;
 
     @NotNull(message = "Description cannot be null")
@@ -28,7 +28,7 @@ public class Task {
 
     @NotNull(message = "Due date cannot be null")
     @Column(nullable = false)
-    private LocalDate dueDate; // Use LocalDate for dates instead of String
+    private LocalDate dueDate; 
 
     @NotNull(message = "Priority cannot be null")
     @Size(min = 2, max = 20, message = "Priority should be between 2 and 20 characters")
@@ -40,11 +40,9 @@ public class Task {
     @Column(nullable = false, length = 20)
     private String status;
 
-    // Default Constructor
     public Task() {
     }
 
-    // Parameterized Constructor
     public Task(int taskId, String title, String description, LocalDate dueDate, String priority, String status) {
         this.taskId = taskId;
         this.title = title;
@@ -54,7 +52,7 @@ public class Task {
         this.status = status;
     }
 
-    // Getters and Setters
+
     public int getTaskId() {
         return taskId;
     }
@@ -103,7 +101,7 @@ public class Task {
         this.status = status;
     }
 
-    // Override toString method for debugging and logging
+
     @Override
     public String toString() {
         return "Task [taskId=" + taskId + ", title=" + title + ", description=" + description + ", dueDate=" + dueDate
