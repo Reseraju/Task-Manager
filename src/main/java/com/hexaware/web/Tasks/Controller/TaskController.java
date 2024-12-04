@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("api/tasks")
 public class TaskController {
 
     @Autowired
@@ -67,9 +67,9 @@ public class TaskController {
         Optional<Task> task = taskService.getTaskById(id);
         if (task.isPresent()) {
             taskService.deleteTaskById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+            return new ResponseEntity<>("Not deleted", HttpStatus.NO_CONTENT); 
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+            return new ResponseEntity<>("Deleted", HttpStatus.NOT_FOUND); 
         }
     }
 }

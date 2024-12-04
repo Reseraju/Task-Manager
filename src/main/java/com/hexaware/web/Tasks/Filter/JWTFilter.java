@@ -32,21 +32,25 @@ public class JWTFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		
+		if (request == null || response == null || filterChain == null) {
+            throw new IllegalArgumentException("Request, Response, or FilterChain cannot be null");
+        }
+		
 		String authHeader = request.getHeader("Authorization");
 		String token = null;
-		String username = null;
+		String userEmail = null;
 		
 		// if there is an auth header named authorization and if it starts with Bearer 
 		if(authHeader != null && authHeader.startsWith("Bearer ")) {
 			token = authHeader.substring(7);
-			username = jwtService.extractUsername(token);
+			userEmail = jwtService.extractUsername(token);
 		}
 		
-		// if username exists in database and user not authenticated yet then
-		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+		// if userEmail exists in database and user not authenticated yet then
+		if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			
 			// getting userDetails of that user
-			UserDetails userDetails = context.getBean(UserPrincipalService.class).loadUserByUsername(username);
+			UserDetails userDetails = context.getBean(UserPrincipalService.class).loadUserByUsername(userEmail);
 			
 			// token is valid
 			if(jwtService.validateToken(token, userDetails)) {

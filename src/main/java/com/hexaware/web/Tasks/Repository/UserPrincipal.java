@@ -10,11 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.hexaware.web.Tasks.Entity.Users;
 
 public class UserPrincipal implements UserDetails{
-	private String username;
+	private String email;
 	private String password;
 	
 	public UserPrincipal(Users user) {
-		this.username = user.getUsername();
+		this.email = user.getEmail();
 		this.password = user.getPassword();
 	}
 
@@ -33,6 +33,6 @@ public class UserPrincipal implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return username;
+		return email;
 	}
 }

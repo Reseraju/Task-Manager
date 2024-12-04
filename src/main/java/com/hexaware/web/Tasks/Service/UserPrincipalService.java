@@ -16,14 +16,14 @@ public class UserPrincipalService implements UserDetailsService{
 	@Autowired
 	private UserRepo repo;
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users user = repo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = repo.findByEmail(email);
         if (user == null) {
             System.out.println("User Not Found");
             throw new UsernameNotFoundException("user not found");
         }
         
         return new UserPrincipal(user);
-	}
+    }
 	
 }
